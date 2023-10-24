@@ -1,0 +1,25 @@
+From 7a62c5f716bb3a0dd119d6a6eb5994d906ffbb32 Mon Sep 17 00:00:00 2001
+From: Hans de Goede <hdegoede@redhat.com>
+Date: Mon, 16 Oct 2023 22:40:47 +0200
+Subject: [PATCH] i8259 hack allow mapping of legacy IRQs with NULL PIC
+
+Signed-off-by: Hans de Goede <hdegoede@redhat.com>
+---
+ arch/x86/kernel/i8259.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/arch/x86/kernel/i8259.c b/arch/x86/kernel/i8259.c
+index 30a55207c000..e34b2c884d70 100644
+--- a/arch/x86/kernel/i8259.c
++++ b/arch/x86/kernel/i8259.c
+@@ -394,7 +394,7 @@ static int legacy_pic_probe(void)
+ }
+ 
+ struct legacy_pic null_legacy_pic = {
+-	.nr_legacy_irqs = 0,
++	.nr_legacy_irqs = NR_IRQS_LEGACY,
+ 	.chip = &dummy_irq_chip,
+ 	.mask = legacy_pic_uint_noop,
+ 	.unmask = legacy_pic_uint_noop,
+-- 
+2.41.0
